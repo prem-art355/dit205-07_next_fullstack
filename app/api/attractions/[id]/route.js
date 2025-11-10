@@ -17,7 +17,7 @@ export async function GET(request, { params }) {
     return NextResponse.json(rows[0], { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { error: "Database error", details: error.message },
+      { error: "Database error", details: error?.sqlMessage || error?.message || String(error) },
       { status: 500 }
     );
   }
@@ -50,7 +50,7 @@ export async function PUT(request, { params }) {
     );
     return NextResponse.json(rows[0], { status: 200 });
   } catch (e) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+    return NextResponse.json({ error: e?.sqlMessage || e?.message || String(e) }, { status: 500 });
   }
 }
 
@@ -69,7 +69,7 @@ export async function DELETE(_request, { params }) {
     await mysqlPool.query("DELETE FROM attractions WHERE id = ?", [id]);
     return NextResponse.json({ ok: true }, { status: 200 });
   } catch (e) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+    return NextResponse.json({ error: e?.sqlMessage || e?.message || String(e) }, { status: 500 });
   }
 }
 

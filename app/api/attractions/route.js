@@ -10,7 +10,7 @@ export async function GET(request) {
     return NextResponse.json(rows, { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { error: "Database error", details: error.message },
+      { error: "Database error", details: error?.sqlMessage || error?.message || String(error) },
       { status: 500 }
     );
   }
