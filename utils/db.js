@@ -1,4 +1,4 @@
-import mysql from "mysql2/promise";
+import mysql from "mysql2";
 
 export const mysqlPool = mysql.createPool({
   host: process.env.DB_HOST || "localhost",
@@ -12,7 +12,7 @@ export const mysqlPool = mysql.createPool({
     process.env.DB_SSL === "true"
       ? { minVersion: "TLSv1.2", rejectUnauthorized: true }
       : undefined,
-});
+}).promise();
 
-// mysql2/promise already returns a promise pool suitable for async/await
+// Expose a promise pool (mysql2.promise wrapper) for async/await usage
 
