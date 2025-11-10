@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-export default function page() {
+export default function Page() {
   const { id } = useParams();
   const [attraction, setAttraction] = useState(null);
   const [loading, setLoading] = useState(true);
